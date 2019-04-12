@@ -1,14 +1,17 @@
 import { 
   FETCH_SMURFS_START,
   FETCH_SMURFS_SUCCESS,
-  FETCH_SMURFS_FAILURE
+  POST_SMURF_START,
+  POST_SMURF_SUCCESS,
+  FAILURE
 } from '../actions';
 
 const initialState ={
-   smurfs: [],
-   fetchingSmurfs: false,
-   error: '' 
- }
+  smurfs: [],
+  fetchingSmurfs: false,
+  postingSmurf: false,
+  error: '' 
+}
 
 const smurfReducer = (state = initialState, action) => {
   switch(action.type){
@@ -16,19 +19,29 @@ const smurfReducer = (state = initialState, action) => {
       return({
         ...state,
         fetchingSmurfs: true,
-        error: ''
       })
     case FETCH_SMURFS_SUCCESS:
       return({
         ...state,
         fetchingSmurfs: false,
-        error: '',
         smurfs: [...state.smurfs, ...action.payload]
       })
-    case FETCH_SMURFS_FAILURE:
+    case POST_SMURF_START:
+      return({
+        ...state,
+        postingSmurf: true
+      })
+    case POST_SMURF_SUCCESS:
+      return({
+        ...state,
+        postingSmurf: false,
+        smurfs: action.payload
+      })
+    case FAILURE:
       return({
         ...state,
         fetchingSmurfs: false,
+        postingSmurf: false,
         error: action.payload
       })
     default:
