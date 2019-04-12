@@ -15,7 +15,7 @@ const smurfReducer = (state = initialState, action) => {
     case FETCH_SMURFS_START:
       return({
         ...state,
-        fetchingSmurf: true,
+        fetchingSmurfs: true,
         error: ''
       })
     case FETCH_SMURFS_SUCCESS:
